@@ -1,19 +1,13 @@
-// Object literal
-const myObj = {
+class MyClass {
 	myMethod() {
-		console.log('Object:::', this);
+		const foo = 123; // this variable is available in the lexical scope
+		console.log('1', this);
+		setTimeout(() => {
+			// with an arrow function, this will come from lexical scope
+			console.log(this);
+		}, 0);
 	}
-};
-// myObj.myMethod();
-
-// Function
-function myFunction(...text: string[]) {
-	console.log('Function:::', this, text);
 }
 
-const bindFunction = myFunction.bind(myObj);
-bindFunction('ABC', 'DEF');
-bindFunction('123', '456');
-bindFunction('ABC', 'DEF');
-myFunction.call(myObj, 'ABC', 'DEF');
-myFunction.apply(myObj, ['ABC', 'DEF']);
+const myInstance = new MyClass();
+myInstance.myMethod();
