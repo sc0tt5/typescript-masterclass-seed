@@ -1,8 +1,17 @@
-const elem = document.querySelector('.click');
+// typeof acts a little different in typescript
 
-function handleClick(this: HTMLAnchorElement, event: Event) {
-	event.preventDefault();
-	console.log(this.className);
-}
+const person = {
+	name: 'Todd',
+	age: 27
+};
 
-elem.addEventListener('click', handleClick, false);
+// anonymous type
+type Person = typeof person; // type query
+
+const anotherPerson: Person = {
+	name: 'John',
+	age: 30
+};
+
+// JavaScript
+// typeof person // 'object'
