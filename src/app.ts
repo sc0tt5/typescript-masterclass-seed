@@ -7,6 +7,9 @@ const person = {
 
 // anonymous type
 type Person = typeof person; // type query
+type PersonKeys = keyof Person; // name | age
+
+type PersonTypes = Person[PersonKeys]; // types
 
 const anotherPerson: Person = {
 	name: 'John',
