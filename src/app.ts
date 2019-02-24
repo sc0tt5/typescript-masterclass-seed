@@ -1,13 +1,8 @@
-class MyClass {
-	myMethod() {
-		const foo = 123; // this variable is available in the lexical scope
-		console.log('1', this);
-		setTimeout(() => {
-			// with an arrow function, this will come from lexical scope
-			console.log(this);
-		}, 0);
-	}
+const elem = document.querySelector('.click');
+
+function handleClick(this: HTMLAnchorElement, event: Event) {
+	event.preventDefault();
+	console.log(this.className);
 }
 
-const myInstance = new MyClass();
-myInstance.myMethod();
+elem.addEventListener('click', handleClick, false);
