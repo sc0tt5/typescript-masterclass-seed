@@ -1,26 +1,15 @@
-// required mapped type and modifiers
-// ...opposite of partial type
+// pick mapped type
+// similar as lodash pluck
 interface Person {
 	name: string;
-	age?: number;
+	age: number;
+	address: {};
 }
 
-// create custom map type
-// this is to demo the required type...same as below
-type MyRequired<T> = {
-	-readonly // if any are optional readonly then remove with minus
-	// if any are optional then remove question mark with minus
-	// minus modifier new to TS 2.8
-	[P in keyof T]-?: T[P]
-};
+// this mirrors built-in Pick
+type MyPick<T, K extends keyof T> = { [P in K]: T[P] };
 
-function printAge(person: Required<Person>) {
-	return `${person.name} is ${person.age}`;
-}
-
-const person: Required<Person> = {
+const person: Pick<Person, 'name' | 'age'> = {
 	name: 'Todd',
 	age: 27
 };
-
-const age = printAge(person);
