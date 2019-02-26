@@ -1,27 +1,30 @@
-// typeof acts a little different in typescript
+// mapped type
 
-const person = {
+interface Person {
+	name: string;
+	age: number;
+}
+
+const person: Person = {
 	name: 'Todd',
 	age: 27
 };
 
-// anonymous type
-type Person = typeof person; // type query
-type PersonKeys = keyof Person; // name | age
-type PersonTypes = Person[PersonKeys]; // types
-
-// generic types T and K
-// lookup type
-function getProperty<T, K extends keyof T>(obj: T, key: K) {
-	return obj[key];
+// make this person immutable
+// T is a generic type
+function freezePerson<T>(obj: T): Readonly<T> {
+	return Object.freeze(obj); // freeze creates readonly
 }
 
-const personName = getProperty(person, 'name');
+const newPerson = freezePerson(person);
+// newPerson.age = '30'; // this won't work because of readonly
 
-const anotherPerson: Person = {
-	name: 'John',
-	age: 30
+// this is what it would look like if we wrote our own readonly
+type MyReadonly<T> = {
+	readonly // keyof returns a string union
+	[P in keyof T]: T[P]
 };
 
-// JavaScript
-// typeof person // 'object'
+function myFreezePerson<T>(obj: T): MyReadonly<T> {
+	return Object.freeze(obj); // freeze creates readonly
+}
