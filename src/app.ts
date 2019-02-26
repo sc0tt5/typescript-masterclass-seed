@@ -1,8 +1,16 @@
-// mapped type -- readonly
+// mapped type -- partial
 
 interface Person {
 	name: string;
 	age: number;
+}
+
+// custom partial type
+type MyPartial<T> = { [P in keyof T]?: T[P] };
+
+function updatePerson(person: Person, prop: Partial<Person>) {
+	// can try MyPartial
+	return { ...person, ...prop };
 }
 
 const person: Person = {
@@ -10,21 +18,4 @@ const person: Person = {
 	age: 27
 };
 
-// make this person immutable
-// T is a generic type
-function freezePerson<T>(obj: T): Readonly<T> {
-	return Object.freeze(obj); // freeze creates readonly
-}
-
-const newPerson = freezePerson(person);
-// newPerson.age = '30'; // this won't work because of readonly
-
-// this is what it would look like if we wrote our own readonly
-type MyReadonly<T> = {
-	readonly // keyof returns a string union
-	[P in keyof T]: T[P]
-};
-
-function myFreezePerson<T>(obj: T): MyReadonly<T> {
-	return Object.freeze(obj); // freeze creates readonly
-}
+updatePerson(person, { name: 'abc' });
