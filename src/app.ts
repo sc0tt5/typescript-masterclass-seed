@@ -1,4 +1,4 @@
-// mapped type
+// mapped type -- readonly
 
 interface Person {
 	name: string;
