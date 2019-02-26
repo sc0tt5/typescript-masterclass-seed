@@ -1,15 +1,17 @@
-// pick mapped type
-// similar as lodash pluck
-interface Person {
-	name: string;
-	age: number;
-	address: {};
+// record mapped type
+// following the dictionary pattern
+
+let dictionary: Record<string, TrackStates> = {};
+
+interface TrackStates {
+	current: string;
+	next: string;
 }
 
-// this mirrors built-in Pick
-type MyPick<T, K extends keyof T> = { [P in K]: T[P] };
-
-const person: Pick<Person, 'name' | 'age'> = {
-	name: 'Todd',
-	age: 27
+const item: Record<keyof TrackStates, string> = {
+	current: 'js2js9',
+	next: '8nlksjsk'
 };
+
+// Numbers are coerced to String ...this is JavaScript
+dictionary[0] = item;
