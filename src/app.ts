@@ -1,21 +1,26 @@
-// mapped type -- partial
-
+// required mapped type and modifiers
+// ...opposite of partial type
 interface Person {
 	name: string;
-	age: number;
+	age?: number;
 }
 
-// custom partial type
-type MyPartial<T> = { [P in keyof T]?: T[P] };
+// create custom map type
+// this is to demo the required type...same as below
+type MyRequired<T> = {
+	-readonly // if any are optional readonly then remove with minus
+	// if any are optional then remove question mark with minus
+	// minus modifier new to TS 2.8
+	[P in keyof T]-?: T[P]
+};
 
-function updatePerson(person: Person, prop: Partial<Person>) {
-	// can try MyPartial
-	return { ...person, ...prop };
+function printAge(person: Required<Person>) {
+	return `${person.name} is ${person.age}`;
 }
 
-const person: Person = {
+const person: Required<Person> = {
 	name: 'Todd',
 	age: 27
 };
 
-updatePerson(person, { name: 'abc' });
+const age = printAge(person);
