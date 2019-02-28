@@ -1,14 +1,5 @@
 // type guards
-// instance of and type guards
-
-class Foo {
-	bar() {}
-}
-
-const bar = new Foo();
-
-// console.log(bar instanceof Foo);
-// console.log(Object.getPrototypeOf(bar) === Foo.prototype);
+// user defined type guards
 
 class Song {
 	constructor(public title: string, public duration: number) {}
@@ -18,8 +9,14 @@ class Playlist {
 	constructor(public name: string, public songs: Song[]) {}
 }
 
+// user defined type guard
+// if this function returns true then we are dealing with a song -- item is Song
+function isSong(item: any): item is Song {
+	return item instanceof Song;
+}
+
 function getItemName(item: Song | Playlist) {
-	if (item instanceof Song) {
+	if (isSong(item)) {
 		return item.title;
 	}
 	return item.name;
