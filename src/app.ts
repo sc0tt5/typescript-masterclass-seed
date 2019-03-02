@@ -1,36 +1,41 @@
-// type guards
-// literal type guards and "in" operator
+// advanced types and practices
+// intersection types
 
-// in operator
-// does the window object have a property called localStorage
-const exists = 'localStorage' in window;
-
-class Song {
-	kind: 'song';
-	constructor(public title: string, public duration: number) {}
+interface Order {
+	id: string;
+	amount: number;
+	currency: string;
 }
 
-class Playlist {
-	kind: 'playlist';
-	constructor(public name: string, public songs: Song[]) {}
+interface Stripe {
+	card: string;
+	cvc: string;
 }
 
-// user defined type guard
-// if this function returns true then we are dealing with a song -- item is Song
-function isSong(item: any) {
-	return 'title' in item;
+interface PayPal {
+	email: string;
 }
 
-function getItemName(item: Song | Playlist) {
-	// if (isSong(item)) {
-	if (item.kind === 'song') {
-		return item.title;
-	}
-	return item.name;
-}
+type CheckoutCard = Order & Stripe;
+type CheckoutPayPal = Order & PayPal;
+// type CheckoutABC = Order & { name: string };
 
-const songName = getItemName(new Song('Wonderful Wonderful', 300000));
-console.log('Song name:', songName);
+const order: Order = {
+	id: 'jkl59',
+	amount: 100,
+	currency: 'USD'
+};
 
-const playlistName = getItemName(new Playlist('The Best Songs', [new Song('The Man', 300000)]));
-console.log('Playlist name:', playlistName);
+const orderCard: CheckoutCard = {
+	...order,
+	card: '1000 2000 3000 4000',
+	cvc: '123'
+};
+
+const orderPayPal: CheckoutPayPal = {
+	...order,
+	email: 'abc@default.com'
+};
+
+// example of the es5 way before we had the spread operator
+const assign = Object.assign({}, order, orderCard);
