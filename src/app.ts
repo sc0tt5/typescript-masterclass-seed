@@ -1,25 +1,14 @@
-// exploring enums
-// string enums and inlining members
+// declaration files
+// note: intro -- DefinitelyTyped and @types
+// see: http://definitelytyped.org/
 
-// new feature in TS, these don't have to be numeric
-// we could use string values...
-const enum Sizes {
-	Small = 'small',
-	Medium = 'medium',
-	Large = 'large'
-}
-// note: add const in front to create an inline member...
-// this avoids a lot of uneccessary code when compiled to JS
-// test by comparing compiled JS side-by-side node dist/app.js
-// remove const // add const ...see the difference
+// writing declaration files
 
-let selected: Sizes = Sizes.Small;
+// see folder @types/lodash/index.d.ts
+// we create this as aan example and now lodash module is avaible
+// when comment out in index.d.ts we can see it is missing (when hover lodash import)
 
-// we can use the enum as the function argument type (Sizes)
-function updateSize(size: Sizes): void {
-	selected = size;
-}
+import * as _ from 'lodash';
 
-updateSize(Sizes.Large);
-
-console.log(selected); // we get the string value lowercase "large"
+// but we can't see types
+_.chunk([1, 2, 3, 4]); // [[1,2],[3,4]]
