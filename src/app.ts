@@ -1,33 +1,28 @@
-// generics and overloads
-// function overloads
+// exploring enums
+// numberic enums and reverse mappings
 
-// when trying to migrate from JS to TS...
+// enum is a data type
+// actually compiles down to JS
 
-// utility functions, pure functions
-
-// start: overloads
-// we are using the union type -- string | T[] -- so...
-function reverse<T>(str: string): string;
-function reverse<T>(arr: T[]): T[];
-// end: overloads
-// note: these are virutal...overloads do not compile down to javascript...simply for type checking purposes.
-// because we are "overloading" on top of typescript we are telling the function
-// that we have multiple ways we can use and get different results back
-
-// the actual function
-function reverse<T>(somethingOrArray: string | T[]): string | T[] {
-	// with function overloads we can define different arguments that we pass in and
-	// the different return types
-	if (typeof somethingOrArray === 'string') {
-		// reverse<T> string
-		return somethingOrArray
-			.split('')
-			.reverse()
-			.join('');
-	}
-	return somethingOrArray.slice().reverse(); // slice to make copy
+enum Sizes {
+	Small,
+	Medium,
+	Large
 }
 
-reverse('Pepporoni'); // string
-reverse(['bacon', 'pepporoni', 'chili', 'mushrooms']); // array of strings
-reverse([1, 2, 3, 4]); // array of numbers...because of generic type
+// if enum already exist and we modify, we need to supply the value
+enum Sizes {
+	ExtraLarge = 3
+}
+
+const selectedSize = 2;
+
+// now we can call tsc in terminal to compile to JS and check what we got...
+// compare side-by-side
+
+// typescript creates a reverse mapping, which means we can
+// either use as string like "Small" or a numeric value like 0 to get value
+
+// now if we run with now... node dist/app.js ...we get 1
+console.log(Sizes.Large); // for numeric value
+console.log(Sizes[selectedSize]); // to return string value
