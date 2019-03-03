@@ -2,13 +2,20 @@
 // note: intro -- DefinitelyTyped and @types
 // see: http://definitelytyped.org/
 
-// writing declaration files
+// augmenting modules with declarations
 
-// see folder @types/lodash/index.d.ts
-// we create this as aan example and now lodash module is avaible
-// when comment out in index.d.ts we can see it is missing (when hover lodash import)
+// npm install @types/lodash
+// in tsconfig.json we can add typeRoots array and use both node_modules and our customer declarations
 
 import * as _ from 'lodash';
 
-// but we can't see types
 _.chunk([1, 2, 3, 4]); // [[1,2],[3,4]]
+
+// provide our own log function to mixin (see @types for custom augmentation)
+_.mixin({
+	log(item: string) {
+		console.log(':::', item);
+	}
+});
+
+_.log('Hello!');

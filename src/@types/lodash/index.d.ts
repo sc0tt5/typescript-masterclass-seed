@@ -6,6 +6,14 @@
 
 // use typescripts declare keyword to write our own type definitions
 // we declare a module because lodash is wrapped in a module
+
+// we're augmenting, so need to import lodash itself first
+import * as lodash from 'lodash';
+
+// ...and here are our custom declarations that we will add to lodash
+// this is actually an ambient module that allows us to create a contract with lodash
 declare module 'lodash' {
-	export function chunk(collection: any, size?: number): any[][];
+	interface LoDashStatic {
+		log(item: string): void;
+	}
 }
