@@ -1,57 +1,27 @@
 // advanced types and practices
-// discriminated (tagged) unions
+// interfaces vs type aliases
 
-interface Order {
-	id: string;
-	amount: number;
-	currency: string;
+interface Item {
+	name: string;
 }
 
-interface Stripe {
-	type: 'stripe'; // to differentiate between this and PayPal -- discriminate types with this common property
-	card: string;
-	cvc: string;
+interface Artist extends Item {
+	songs: number;
 }
 
-interface PayPal {
-	type: 'paypal'; // to differentiate between this and Stripe -- discriminate types with this common property
-	email: string;
+interface Artist {
+	getSongs(): number;
 }
 
-type CheckoutCard = Order & Stripe;
-type CheckoutPayPal = Order & PayPal;
-// type CheckoutABC = Order & { name: string };
+// type alias
+type Artist2 = {
+	name: string;
+} & Item; // intersection type
 
-const order: Order = {
-	id: 'jkl59',
-	amount: 100,
-	currency: 'USD'
-};
-
-const orderCard: CheckoutCard = {
-	...order,
-	type: 'stripe',
-	card: '1000 2000 3000 4000',
-	cvc: '123'
-};
-
-const orderPayPal: CheckoutPayPal = {
-	...order,
-	type: 'paypal',
-	email: 'abc@default.com'
-};
-
-// custom union type
-type Payload = CheckoutCard | CheckoutPayPal;
-
-function checkout(payload: Payload) {
-	// how do we detect type here?
-	// create union type ...checking one or other
-	// type is the discriminated property
-	if (payload.type === 'stripe') {
-		console.log(payload.card, payload.cvc);
+const newArtist: Artist = {
+	name: 'ABC',
+	songs: 5,
+	getSongs() {
+		return this.songs;
 	}
-	if (payload.type === 'paypal') {
-		console.log(payload.email);
-	}
-}
+};
