@@ -1,27 +1,22 @@
 // advanced types and practices
-// interfaces vs type aliases
+// interfaces vs classes
 
-interface Item {
+// class is more or less a blueprint for sharing information
+// vs
+// interface is a group of properties and methods that describe
+
+// simple type checking
+/* interface Artist {
 	name: string;
+} */
+
+// can use class for type checking as well
+class ArtistCreator /* implements Artist */ {
+	constructor(public name: string) {}
 }
 
-interface Artist extends Item {
-	songs: number;
+function artistFactory({ name }: ArtistCreator) {
+	return new ArtistCreator(name);
 }
 
-interface Artist {
-	getSongs(): number;
-}
-
-// type alias
-type Artist2 = {
-	name: string;
-} & Item; // intersection type
-
-const newArtist: Artist = {
-	name: 'ABC',
-	songs: 5,
-	getSongs() {
-		return this.songs;
-	}
-};
+artistFactory({ name: 'Todd' });
