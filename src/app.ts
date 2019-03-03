@@ -1,28 +1,25 @@
 // exploring enums
-// numberic enums and reverse mappings
+// string enums and inlining members
 
-// enum is a data type
-// actually compiles down to JS
+// new feature in TS, these don't have to be numeric
+// we could use string values...
+const enum Sizes {
+	Small = 'small',
+	Medium = 'medium',
+	Large = 'large'
+}
+// note: add const in front to create an inline member...
+// this avoids a lot of uneccessary code when compiled to JS
+// test by comparing compiled JS side-by-side node dist/app.js
+// remove const // add const ...see the difference
 
-enum Sizes {
-	Small,
-	Medium,
-	Large
+let selected: Sizes = Sizes.Small;
+
+// we can use the enum as the function argument type (Sizes)
+function updateSize(size: Sizes): void {
+	selected = size;
 }
 
-// if enum already exist and we modify, we need to supply the value
-enum Sizes {
-	ExtraLarge = 3
-}
+updateSize(Sizes.Large);
 
-const selectedSize = 2;
-
-// now we can call tsc in terminal to compile to JS and check what we got...
-// compare side-by-side
-
-// typescript creates a reverse mapping, which means we can
-// either use as string like "Small" or a numeric value like 0 to get value
-
-// now if we run with now... node dist/app.js ...we get 1
-console.log(Sizes.Large); // for numeric value
-console.log(Sizes[selectedSize]); // to return string value
+console.log(selected); // we get the string value lowercase "large"
