@@ -1,21 +1,13 @@
 // declaration files
-// note: intro -- DefinitelyTyped and @types
-// see: http://definitelytyped.org/
 
-// augmenting modules with declarations
+// emitting declaration files from tsc
 
-// npm install @types/lodash
-// in tsconfig.json we can add typeRoots array and use both node_modules and our customer declarations
+// add to tsconfig.json declaration true
+// this will auto-gnenerate your typings
+// run tsc in terminal, open dist to see app.d.ts
+// also, set types directory in like "declarationDir": "./@types",
 
-import * as _ from 'lodash';
-
-_.chunk([1, 2, 3, 4]); // [[1,2],[3,4]]
-
-// provide our own log function to mixin (see @types for custom augmentation)
-_.mixin({
-	log(item: string) {
-		console.log(':::', item);
-	}
-});
-
-_.log('Hello!');
+export class Foo {
+	constructor(public name: string) {}
+	bar(age: number) {}
+}
