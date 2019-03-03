@@ -1,38 +1,33 @@
 // generics and overloads
-// function generics
+// function overloads
 
-// generics are not unique to typescript, they exist in other languages
+// when trying to migrate from JS to TS...
 
-// generic types
+// utility functions, pure functions
 
-class Pizza {
-	constructor(private name: string, private price: number) {}
-}
+// start: overloads
+// we are using the union type -- string | T[] -- so...
+function reverse<T>(str: string): string;
+function reverse<T>(arr: T[]): T[];
+// end: overloads
+// note: these are virutal...overloads do not compile down to javascript...simply for type checking purposes.
+// because we are "overloading" on top of typescript we are telling the function
+// that we have multiple ways we can use and get different results back
 
-// using a generic type <T> allows more flexibility
-class List<T> {
-	private list: T[];
-
-	addItem(item: T): void {
-		this.list.push(item);
+// the actual function
+function reverse<T>(somethingOrArray: string | T[]): string | T[] {
+	// with function overloads we can define different arguments that we pass in and
+	// the different return types
+	if (typeof somethingOrArray === 'string') {
+		// reverse<T> string
+		return somethingOrArray
+			.split('')
+			.reverse()
+			.join('');
 	}
-
-	getList(): T[] {
-		return this.list;
-	}
+	return somethingOrArray.slice().reverse(); // slice to make copy
 }
 
-const list = new List<Pizza>();
-
-list.addItem(new Pizza('Pepperoni', 15));
-
-const pizzas = list.getList();
-
-// another...
-class Coupon {
-	constructor(private name: string) {}
-}
-
-const anotherList = new List();
-
-anotherList.addItem(new Coupon('PIZZA25'));
+reverse('Pepporoni'); // string
+reverse(['bacon', 'pepporoni', 'chili', 'mushrooms']); // array of strings
+reverse([1, 2, 3, 4]); // array of numbers...because of generic type
