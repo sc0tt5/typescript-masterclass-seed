@@ -1,22 +1,38 @@
-// advanced types and practices
-// interfaces vs classes
+// generics and overloads
+// function generics
 
-// class is more or less a blueprint for sharing information
-// vs
-// interface is a group of properties and methods that describe
+// generics are not unique to typescript, they exist in other languages
 
-// simple type checking
-/* interface Artist {
-	name: string;
-} */
+// generic types
 
-// can use class for type checking as well
-class ArtistCreator /* implements Artist */ {
-	constructor(public name: string) {}
+class Pizza {
+	constructor(private name: string, private price: number) {}
 }
 
-function artistFactory({ name }: ArtistCreator) {
-	return new ArtistCreator(name);
+// using a generic type <T> allows more flexibility
+class List<T> {
+	private list: T[];
+
+	addItem(item: T): void {
+		this.list.push(item);
+	}
+
+	getList(): T[] {
+		return this.list;
+	}
 }
 
-artistFactory({ name: 'Todd' });
+const list = new List<Pizza>();
+
+list.addItem(new Pizza('Pepperoni', 15));
+
+const pizzas = list.getList();
+
+// another...
+class Coupon {
+	constructor(private name: string) {}
+}
+
+const anotherList = new List();
+
+anotherList.addItem(new Coupon('PIZZA25'));
