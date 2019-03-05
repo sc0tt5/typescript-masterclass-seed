@@ -1,3 +1,5 @@
 // tsconfig and compiler options
-// include, exclude and file properties
-// files, include, and exclude properties in tsconfig.json
+// configuration inheritance with extends
+
+// in tsconfig.json set "noImplicitAny": true to prevent params without type
+function log(message: string) {}
