@@ -1,5 +1,6 @@
 // tsconfig and compiler options
-// configuration inheritance with extends
+// emitting source maps
 
-// in tsconfig.json set "noImplicitAny": true to prevent params without type
-function log(message: string) {}
+class Person {
+	name: string = 'Todd';
+}
