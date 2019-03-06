@@ -1,9 +1,8 @@
 // tsconfig and compiler options
-// transpiling and experimental features
+// understanding lib and es libraries
 
-class Person {
-	constructor(private name: string) {}
-	getName() {
-		return this.name;
-	}
-}
+// in tsconfig, change the following to see how the code breaks/works
+// "target": "es5",
+// "lib": ["es6", "dom"],
+Array.from(document.querySelectorAll('*'));
+setTimeout(() => {}, 1);
