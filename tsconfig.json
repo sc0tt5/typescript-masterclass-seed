@@ -3,10 +3,7 @@
 		"target": "es5",
 		"lib": ["es6", "dom"],
 		"module": "commonjs",
-		"outDir": "dist",
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"noFallthroughCasesInSwitch": true,
-		"noImplicitReturns": true
+		"importHelpers": true,
+		"outDir": "dist"
 	}
 }
