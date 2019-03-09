@@ -1,2 +1,2 @@
 // tsconfig and compiler options
-// cli output tweaks
+// enforcing code quality
